@@ -60,13 +60,13 @@ namespace AsteroidsPakAleksey
 
         private void OnCollisionEnter2D(Collision2D other)
         {
-            if (_playerModel.playerDataIndividual.Health <= 0)
+            if (_playerModel.playerDataRelevant.CurrentHealth <= 0)
             {
                 Destroy(gameObject);
             }
             else
             {
-                _playerModel.playerDataIndividual.Health--;
+                _playerModel.playerDataRelevant.CurrentHealth--;
             }
         }
     }

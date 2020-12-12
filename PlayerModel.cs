@@ -2,12 +2,12 @@
 {
     public sealed class PlayerModel
     {
-        public PlayerDataRelevant playerDataIndividual;
+        public PlayerDataRelevant playerDataRelevant;
         public PlayerComponents playerComponents;
 
         public PlayerModel(PlayerDataRelevant playerDataIndividual, PlayerComponents playerComponents)
         {
-            this.playerDataIndividual = playerDataIndividual;
+            this.playerDataRelevant = playerDataIndividual;
             this.playerComponents = playerComponents;
         }
     }

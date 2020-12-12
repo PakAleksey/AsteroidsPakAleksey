@@ -11,9 +11,9 @@ namespace AsteroidsPakAleksey
         }
         public void Move(float horizontal, float vertical, float deltaTime)
         {
-            var speed = deltaTime * PlayerModel.playerDataIndividual.Speed;
-            PlayerModel.playerDataIndividual.Move.Set(horizontal * speed, vertical * speed, 0.0f);
-            PlayerModel.playerComponents.PlayerTransform.localPosition += PlayerModel.playerDataIndividual.Move;
+            var speed = deltaTime * PlayerModel.playerDataRelevant.Speed;
+            PlayerModel.playerDataRelevant.Move.Set(horizontal * speed, vertical * speed, 0.0f);
+            PlayerModel.playerComponents.PlayerTransform.localPosition += PlayerModel.playerDataRelevant.Move;
         }
     }
 }

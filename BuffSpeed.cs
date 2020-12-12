@@ -10,12 +10,12 @@ namespace AsteroidsPakAleksey
         }
         public void AddBuffSpeed()
         {
-            PlayerModel.playerDataIndividual.Speed += PlayerModel.playerDataIndividual.Acceleration;
+            PlayerModel.playerDataRelevant.Speed += PlayerModel.playerDataRelevant.Acceleration;
         }
 
         public void RemoveBuffSpeed()
         {
-            PlayerModel.playerDataIndividual.Speed -= PlayerModel.playerDataIndividual.Acceleration;
+            PlayerModel.playerDataRelevant.Speed -= PlayerModel.playerDataRelevant.Acceleration;
         }
     }
 }
