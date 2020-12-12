@@ -1,4 +1,4 @@
-﻿namespace Asteroids.Abstrac_Factory
+﻿namespace AsteroidsPakAleksey.Abstrac_Factory
 {
     internal sealed class PCWindow : IWindow
     {
