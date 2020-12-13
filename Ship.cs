@@ -2,12 +2,12 @@
 
 namespace AsteroidsPakAleksey
 {
-    internal sealed class Ship : IMove, IRotation
+    internal sealed class Ship : IRotation
     {
         private readonly IMove _moveImplementation;
         private readonly IRotation _rotationImplementation;
 
-        public float Speed => _moveImplementation.Speed;
+        public float Speed;
 
         public Ship(IMove moveImplementation, IRotation rotationImplementation)
         {

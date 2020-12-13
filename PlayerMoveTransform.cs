@@ -3,7 +3,7 @@
 
 namespace AsteroidsPakAleksey
 {
-    public sealed class PlayerMoveTransform : PlayerController
+    public sealed class PlayerMoveTransform : PlayerController, IMove
     {
         public PlayerMoveTransform(PlayerModel playerModel) : base(playerModel)
         {

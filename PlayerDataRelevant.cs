@@ -6,7 +6,7 @@ namespace AsteroidsPakAleksey
     [Serializable]
     public struct PlayerDataRelevant
     {
-        public GameObject PlayerObject;
+        public GameObject PlayerPrefab;
         public float MaxHealth;
         public float CurrentHealth;       
         public float Speed;

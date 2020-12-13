@@ -7,11 +7,11 @@ namespace AsteroidsPakAleksey
     {
         public PlayerInitializator(GameController mainController, PlayerData playerData)
         {
-            var spawnedPlayer = Object.Instantiate(playerData.playerDataIndividual.PlayerObject,
+            var spawnedPlayer = Object.Instantiate(playerData.playerDataIndividual.PlayerPrefab,
             new Vector3(0, 0, 0), Quaternion.identity);
 
             var NewPlayerDataIndividual = playerData.playerDataIndividual;
-            NewPlayerDataIndividual.PlayerObject = spawnedPlayer;
+            NewPlayerDataIndividual.PlayerPrefab = spawnedPlayer;
 
             var NewPlayerComponents = playerData.playerComponents;
             NewPlayerComponents.PlayerTransform = spawnedPlayer.GetComponentInChildren<Transform>();
