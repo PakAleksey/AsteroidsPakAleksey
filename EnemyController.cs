@@ -6,15 +6,15 @@ namespace AsteroidsPakAleksey
 {
     public class EnemyController
     {
-        private Dictionary<string, List<EnemyModel>> _enemys;
+        //private Dictionary<string, List<EnemyModel>> _enemys;
+        public static EnemyControllerFactory EnemyControllerFactory;
         private List<EnemyModel> _asteroids;
         private List<EnemyModel> _comets;
 
-        public EnemyController(List<EnemyModel> asteroids, List<EnemyModel> comets, Dictionary<string, List<EnemyModel>> enemys)
+        public EnemyController(List<EnemyModel> asteroids, List<EnemyModel> comets)
         {
             _asteroids = asteroids;
             _comets = comets;
-            _enemys = enemys;
         }
 
         public void InstantiateEnemy()

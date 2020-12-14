@@ -9,20 +9,18 @@ namespace AsteroidsPakAleksey
     {
         private List<EnemyModel> _asteroids;
         private List<EnemyModel> _comets;
-        private Dictionary<string, List<EnemyModel>> _enemys;
+
         public EnemyInitializator(GameController gameController, EnemyData asteroid, EnemyData comet)
         {
             _asteroids = new List<EnemyModel>();
             _comets = new List<EnemyModel>();
-            _enemys = new Dictionary<string, List<EnemyModel>>();
             for (int i = 0; i < 5; i++)
             {                
                 _asteroids.Add(MakeModel(asteroid));
                 _comets.Add(MakeModel(comet));                
             }
-            _enemys.Add(NameManager.ASTEROID, _asteroids);
-            _enemys.Add(NameManager.COMET, _comets);
-            gameController.EnemyModelTake(_asteroids, _comets, _enemys);
+
+            gameController.EnemyModelTake(_asteroids, _comets);
         }
 
         private EnemyModel MakeModel(EnemyData enemyData)
