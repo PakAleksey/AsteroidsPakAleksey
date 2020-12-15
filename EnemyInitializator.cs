@@ -7,13 +7,13 @@ namespace AsteroidsPakAleksey
 {
     public sealed class EnemyInitializator
     {
-        private List<EnemyModel> _asteroids;
-        private List<EnemyModel> _comets;
+        private HashSet<EnemyModel> _asteroids;
+        private HashSet<EnemyModel> _comets;
 
         public EnemyInitializator(GameController gameController, EnemyData asteroid, EnemyData comet)
         {
-            _asteroids = new List<EnemyModel>();
-            _comets = new List<EnemyModel>();
+            _asteroids = new HashSet<EnemyModel>();
+            _comets = new HashSet<EnemyModel>();
             for (int i = 0; i < 5; i++)
             {                
                 _asteroids.Add(MakeModel(asteroid));
@@ -29,7 +29,7 @@ namespace AsteroidsPakAleksey
             var NewEnemyComponents = enemyData.enemyComponents;
             NewEnemyComponents.Rigidbody2D = NewEnemyData.EnemyPrefab.GetComponent<Rigidbody2D>();
             NewEnemyComponents.StartPosition = NewEnemyData.EnemyPrefab.GetComponent<Transform>();
-            var NewEnemyModel = new EnemyModel(NewEnemyData, NewEnemyComponents);
+            var NewEnemyModel = new EnemyModel(NewEnemyData, NewEnemyComponents);           
             return NewEnemyModel;
         }
     }

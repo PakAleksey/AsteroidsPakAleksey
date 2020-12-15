@@ -10,15 +10,17 @@ namespace AsteroidsPakAleksey
         [SerializeField] private BulletData _bulletData;
         [SerializeField] private EnemyData _enemyDataAsteroid;
         [SerializeField] private EnemyData _enemyDataComet;
-        private EnemyControllerFactory _enemyControllerFactory;
-        private List<EnemyModel> _asteroids;
-        private List<EnemyModel> _comets;
+        private AsteroidControllerFactory _asteroidControllerFactory;
+        private HashSet<EnemyModel> _asteroids;
+        private HashSet<EnemyModel> _comets;
         private PlayerModel _playerModel;
         private PlayerMoveTransform _playerMoveTransform;
         private PlayerRotation _playerRotation;
         private PlayerShoot _playerShoot;
         private BuffSpeed _buffSpeed;
-        private EnemyController _enemyController;
+        private MyEnemyPool _myEnemyPool;
+        private AsteroidController _asteroidController;
+        private CometController _cometController;
         private Camera _camera;
 
         public void PlayerModelTake(PlayerController playerController)
@@ -34,11 +36,11 @@ namespace AsteroidsPakAleksey
             _playerShoot = new PlayerShoot(_playerModel, _bulletModel);           
         }
 
-        public void EnemyModelTake(List<EnemyModel> asteroids, List<EnemyModel> comets)
+        public void EnemyModelTake(HashSet<EnemyModel> asteroids, HashSet<EnemyModel> comets)
         {
             _asteroids = asteroids;
             _comets = comets;
-            //_enemyController = new EnemyController(_asteroids, _comets);
+            _myEnemyPool = new MyEnemyPool(_asteroids, _comets);
         }
 
         private void Start()
@@ -47,11 +49,10 @@ namespace AsteroidsPakAleksey
             new PlayerInitializator(this, _playerData);
             new BulletInitializator(this, _bulletData);
             new EnemyInitializator(this, _enemyDataAsteroid, _enemyDataComet);
-            _enemyControllerFactory = new EnemyControllerFactory();
-            _enemyController = _enemyControllerFactory.Create(_asteroids, _comets);
-            _playerModel.playerDataRelevant.PlayerPrefab.GetComponent<OnCollisionPlayer>().GetPlayerModel(_playerModel);
-            //_enemyController = EnemyController.EnemyControllerFactory.Create(_asteroids, _comets);
-            _enemyController.InstantiateEnemy();
+            _asteroidController = AsteroidController.AsteroidControllerFactory.Create(_myEnemyPool.GetEnemy("Asteroid"), _playerModel);
+            _asteroidController.ActiveEnemy(Vector3.one, Quaternion.identity);
+            _cometController = new CometController(_myEnemyPool.GetEnemy("Comet"), _playerModel);
+            _cometController.ActiveEnemy(Vector3.one, Quaternion.identity);
         }
 
         private void Update()
@@ -75,6 +76,7 @@ namespace AsteroidsPakAleksey
             {
                 _playerShoot.Shoot();
             }
+
         }
     }
 }

@@ -1,38 +1,66 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
+using AsteroidsPakAleksey.Object_Pool;
+using System;
 
 
 namespace AsteroidsPakAleksey
 {
     public class EnemyController
     {
-        //private Dictionary<string, List<EnemyModel>> _enemys;
-        public static EnemyControllerFactory EnemyControllerFactory;
-        private List<EnemyModel> _asteroids;
-        private List<EnemyModel> _comets;
+        private EnemyModel _enemyModel;
+        private PlayerModel _playerModel;
+        private Transform _rotPool;
 
-        public EnemyController(List<EnemyModel> asteroids, List<EnemyModel> comets)
+        public EnemyController(EnemyModel enemyModel, PlayerModel playerModel)
         {
-            _asteroids = asteroids;
-            _comets = comets;
+            _enemyModel = enemyModel;
+            _playerModel = playerModel;
         }
 
-        public void InstantiateEnemy()
+        public void Health()
         {
-            foreach (var enemy in _asteroids)
+            if (_enemyModel.EnemyDataRelevant.CurrentHealth <= 0.0f)
             {
-                GameObject.Instantiate(enemy.EnemyDataRelevant.EnemyPrefab, RandomVector(), new Quaternion());
-            }
-            foreach (var enemy in _comets)
-            {
-                GameObject.Instantiate(enemy.EnemyDataRelevant.EnemyPrefab, RandomVector(), new Quaternion());
+                ReturnToPool();
             }
         }
 
-        private Vector3 RandomVector()
+        public Transform RotPool
         {
-            var vector = new Vector3(Random.Range(1, 20), Random.Range(1, 20), Random.Range(1, 20));
-            return vector;
+            get
+            {
+                if (_rotPool == null)
+                {
+                    var find = GameObject.Find(NameManager.POOL_AMMUNITION);
+                    _rotPool = find == null ? null : find.transform;
+                }
+
+                return _rotPool;
+            }
+        }
+
+        public EnemyModel CreateAsteroidEnemyWithPool(MyEnemyPool enemyPool)
+        {
+            var enemy = enemyPool.GetEnemy("Asteroid");
+            enemy.EnemyDataRelevant.EnemyPrefab.transform.position = Vector3.one;
+            enemy.EnemyDataRelevant.EnemyPrefab.SetActive(true);
+            return enemy;
+        }
+
+        public void ActiveEnemy(Vector3 position, Quaternion rotation)
+        {
+            _enemyModel.EnemyDataRelevant.EnemyPrefab.transform.localPosition = position;
+            _enemyModel.EnemyDataRelevant.EnemyPrefab.transform.localRotation = rotation;
+            _enemyModel.EnemyDataRelevant.EnemyPrefab.SetActive(true);
+            _enemyModel.EnemyDataRelevant.EnemyPrefab.transform.SetParent(null);
+        }
+
+        public void ReturnToPool()
+        {
+            _enemyModel.EnemyDataRelevant.EnemyPrefab.transform.localPosition = Vector3.zero;
+            _enemyModel.EnemyDataRelevant.EnemyPrefab.transform.localRotation = Quaternion.identity;
+            _enemyModel.EnemyDataRelevant.EnemyPrefab.SetActive(false);
+            _enemyModel.EnemyDataRelevant.EnemyPrefab.transform.SetParent(RotPool);
         }
     }
 }

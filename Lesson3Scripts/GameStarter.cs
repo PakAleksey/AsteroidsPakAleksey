@@ -8,11 +8,11 @@ namespace AsteroidsPakAleksey
     {
         private void Start()
         {
-            EnemyPool enemyPool = new EnemyPool(5);
-            var enemy = enemyPool.GetEnemy("Asteroid");
-            enemy.transform.position = Vector3.one;
-            enemy.gameObject.SetActive(true);
-            return;
+            //EnemyPool enemyPool = new EnemyPool(5);
+            //var enemy = enemyPool.GetEnemy("Asteroid");
+            //enemy.transform.position = Vector3.one;
+            //enemy.gameObject.SetActive(true);
+            //return;
             //Enemy.CreateAsteroidEnemy(new Health(100.0f, 100.0f));
 
             //IEnemyFactory factory = new AsteroidFactory();
