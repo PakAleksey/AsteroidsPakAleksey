@@ -10,5 +10,6 @@ namespace AsteroidsPakAleksey
         public GameObject EnemyPrefab;
         public float MaxHealth;
         public float CurrentHealth;
+        public float Speed;
     }
 }

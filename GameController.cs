@@ -20,6 +20,7 @@ namespace AsteroidsPakAleksey
         private BuffSpeed _buffSpeed;
         private MyEnemyPool _myEnemyPool;
         private AsteroidController _asteroidController;
+        private AsteroidController _asteroidController2;
         private CometController _cometController;
         private Camera _camera;
 
@@ -50,7 +51,9 @@ namespace AsteroidsPakAleksey
             new BulletInitializator(this, _bulletData);
             new EnemyInitializator(this, _enemyDataAsteroid, _enemyDataComet);
             _asteroidController = AsteroidController.AsteroidControllerFactory.Create(_myEnemyPool.GetEnemy("Asteroid"), _playerModel);
-            _asteroidController.ActiveEnemy(Vector3.one, Quaternion.identity);
+            _asteroidController.ActiveEnemy(new Vector3(0,0), Quaternion.identity);
+            _asteroidController2 = AsteroidController.AsteroidControllerFactory.Create(_myEnemyPool.GetEnemy("Asteroid"), _playerModel);
+            _asteroidController2.ActiveEnemy(new Vector3(0, 0), Quaternion.identity);
             _cometController = new CometController(_myEnemyPool.GetEnemy("Comet"), _playerModel);
             _cometController.ActiveEnemy(Vector3.one, Quaternion.identity);
         }
@@ -77,6 +80,10 @@ namespace AsteroidsPakAleksey
                 _playerShoot.Shoot();
             }
 
+            _asteroidController.Move();
+            _asteroidController.DistanceToPlayer();
+            _asteroidController2.Move();
+            _asteroidController2.DistanceToPlayer();
         }
     }
 }

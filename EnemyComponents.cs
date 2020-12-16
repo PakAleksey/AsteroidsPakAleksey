@@ -8,6 +8,6 @@ namespace AsteroidsPakAleksey
     public struct EnemyComponents
     {
         public Rigidbody2D Rigidbody2D;
-        public Transform StartPosition;
+        public Transform Transform;
     }
 }

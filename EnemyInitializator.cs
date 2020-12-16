@@ -28,7 +28,7 @@ namespace AsteroidsPakAleksey
             var NewEnemyData = enemyData.enemyDataRelevant;
             var NewEnemyComponents = enemyData.enemyComponents;
             NewEnemyComponents.Rigidbody2D = NewEnemyData.EnemyPrefab.GetComponent<Rigidbody2D>();
-            NewEnemyComponents.StartPosition = NewEnemyData.EnemyPrefab.GetComponent<Transform>();
+            NewEnemyComponents.Transform = NewEnemyData.EnemyPrefab.GetComponent<Transform>();
             var NewEnemyModel = new EnemyModel(NewEnemyData, NewEnemyComponents);           
             return NewEnemyModel;
         }

@@ -10,11 +10,13 @@ namespace AsteroidsPakAleksey
         private EnemyModel _enemyModel;
         private PlayerModel _playerModel;
         private Transform _rotPool;
+        private float _maxDistance;
 
         public EnemyController(EnemyModel enemyModel, PlayerModel playerModel)
         {
             _enemyModel = enemyModel;
             _playerModel = playerModel;
+            _maxDistance = 50;
         }
 
         public void Health()
@@ -23,6 +25,22 @@ namespace AsteroidsPakAleksey
             {
                 ReturnToPool();
             }
+        }
+
+        public void DistanceToPlayer()
+        {
+            var distance = (_enemyModel.EnemyDataRelevant.EnemyPrefab.transform.position - Vector3.zero).magnitude;
+            if (distance > _maxDistance)
+            {
+                ReturnToPool();
+            }
+        }
+
+        public void Move()
+        {
+            _enemyModel.EnemyDataRelevant.EnemyPrefab.transform.position +=
+                _enemyModel.EnemyDataRelevant.EnemyPrefab.transform.TransformDirection(-Vector3.up) *
+                _enemyModel.EnemyDataRelevant.Speed * Time.deltaTime;
         }
 
         public Transform RotPool
