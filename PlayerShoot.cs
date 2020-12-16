@@ -5,16 +5,22 @@ namespace AsteroidsPakAleksey
 {
     public sealed class PlayerShoot : PlayerController
     {
-        private BulletModel _bulletModel;
-        public PlayerShoot(PlayerModel playerModel, BulletModel _bulletModel) : base(playerModel)
+        public PlayerShoot(PlayerModel playerModel) : base(playerModel)
         {
-            this._bulletModel = _bulletModel;
+            
         }
-        public void Shoot()
+
+        public void Shoot(BulletModel bulletModel)
         {
-            var temAmmunition = Object.Instantiate(_bulletModel.BulletComponents.BulletRigidBody, PlayerModel.playerComponents.Burrel.position,
-                PlayerModel.playerComponents.Burrel.rotation);
-            temAmmunition.AddForce(PlayerModel.playerComponents.Burrel.up * _bulletModel.DataBullet.Force);
+            bulletModel.DataBullet.BulletPrefab.transform.position = PlayerModel.playerComponents.Burrel.position;
+            ActiveBullet(bulletModel);
+            bulletModel.DataBullet.BulletPrefab.GetComponent<Rigidbody2D>().AddForce(PlayerModel.playerComponents.Burrel.up * bulletModel.DataBullet.Force);
+        }
+
+        private void ActiveBullet(BulletModel bulletModel)
+        {
+            bulletModel.DataBullet.BulletPrefab.transform.SetParent(null);
+            bulletModel.DataBullet.BulletPrefab.SetActive(true);
         }
     }
 }
