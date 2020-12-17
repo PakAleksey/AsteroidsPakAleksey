@@ -8,7 +8,6 @@ namespace AsteroidsPakAleksey
     {
         private float _limitTime;
         public float TimeStart;
-        public bool IsStart { get; set; }
         public event Action StopTimer = delegate {};
 
         public Timer(float limitTime)
@@ -18,13 +17,12 @@ namespace AsteroidsPakAleksey
 
         public void TimerGo()
         {
-            if (IsStart && TimeStart < _limitTime)
+            if (TimeStart < _limitTime)
             {
                 TimeStart += Time.deltaTime;
             }
             else
             {
-                IsStart = false;
                 TimeStart = 0;
                 StopTimer.Invoke();
             }

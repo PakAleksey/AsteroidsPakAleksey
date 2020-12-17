@@ -7,11 +7,12 @@ namespace AsteroidsPakAleksey
     public sealed class BulletInitializator
     {
         private List<BulletModel> _bullets;
+        private const int _maxBullets = 50;
 
         public BulletInitializator(GameController gameController, BulletData bulletData)
         {
             _bullets = new List<BulletModel>();
-            for (int i = 0; i < 50; i++)
+            for (int i = 0; i < _maxBullets; i++)
             {
                 _bullets.Add(MakeBullet(bulletData));
             }

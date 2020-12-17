@@ -10,7 +10,6 @@ namespace AsteroidsPakAleksey
         [SerializeField] private BulletData _bulletData;
         [SerializeField] private EnemyData _enemyDataAsteroid;
         [SerializeField] private EnemyData _enemyDataComet;
-        private AsteroidControllerFactory _asteroidControllerFactory;
         private HashSet<EnemyModel> _asteroids;
         private HashSet<EnemyModel> _comets;
         private PlayerModel _playerModel;
@@ -86,6 +85,8 @@ namespace AsteroidsPakAleksey
             _asteroidController.DistanceToPlayer();
             _asteroidController2.Move();
             _asteroidController2.DistanceToPlayer();
+            _cometController.Move();
+            _cometController.DistanceToPlayer();
         }
     }
 }
