@@ -9,9 +9,8 @@ namespace AsteroidsPakAleksey
     public sealed class BulletPool
     {
         private readonly List<BulletModel> _bulletPool;
-        private BulletModel _bulletModel;
-        private readonly int _capacityPool;
         private Transform _rootPool;
+        
 
         public BulletPool(List<BulletModel> bullets)
         {
@@ -40,7 +39,7 @@ namespace AsteroidsPakAleksey
             return null;            
         }
 
-        private void ReturnToPool(Transform transform)
+        public void ReturnToPool(Transform transform)
         {
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;

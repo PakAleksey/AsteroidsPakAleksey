@@ -24,7 +24,6 @@ namespace AsteroidsPakAleksey
         private AsteroidController _asteroidController2;
         private CometController _cometController;
         private Camera _camera;
-        private Timer _timer;
 
         public void PlayerModelTake(PlayerController playerController)
         {
@@ -37,7 +36,7 @@ namespace AsteroidsPakAleksey
         public void BulletModelTake(List<BulletModel> bullets)
         {
             _bulletPool = new BulletPool(bullets);
-            _playerShoot = new PlayerShoot(_playerModel);              
+            _playerShoot = new PlayerShoot(_playerModel, _bulletPool);              
         }
 
         public void EnemyModelTake(HashSet<EnemyModel> asteroids, HashSet<EnemyModel> comets)
@@ -49,7 +48,6 @@ namespace AsteroidsPakAleksey
 
         private void Start()
         {
-            _timer = new Timer();
             _camera = Camera.main;
             new PlayerInitializator(this, _playerData);
             new BulletInitializator(this, _bulletData);
@@ -59,12 +57,11 @@ namespace AsteroidsPakAleksey
             _asteroidController2 = AsteroidController.AsteroidControllerFactory.Create(_myEnemyPool.GetEnemy("Asteroid"), _playerModel);
             _asteroidController2.ActiveEnemy(new Vector3(0, 0), Quaternion.identity);
             _cometController = new CometController(_myEnemyPool.GetEnemy("Comet"), _playerModel);
-            //_cometController.ActiveEnemy(Vector3.one, Quaternion.identity);
+            _cometController.ActiveEnemy(Vector3.one, Quaternion.identity);
         }
 
         private void Update()
         {
-            _timer.TimerGo();
             var direction = Input.mousePosition - _camera.WorldToScreenPoint(transform.position);
             _playerRotation.Rotation(direction);
 
@@ -82,8 +79,8 @@ namespace AsteroidsPakAleksey
 
             if (Input.GetButtonDown("Fire1"))
             {
-                _playerShoot.Shoot(_bulletPool.GetBullet());
-            }
+                _playerShoot.Shoot();                
+            }            
 
             _asteroidController.Move();
             _asteroidController.DistanceToPlayer();
