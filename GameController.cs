@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using Asteroids.ServiceLocator;
 
 
 namespace AsteroidsPakAleksey
@@ -32,10 +33,10 @@ namespace AsteroidsPakAleksey
             _buffSpeed = new BuffSpeed(_playerModel);
         }
 
-        public void BulletModelTake(List<BulletModel> bullets)
+        public void BulletModelTake(BulletModel bulletModel)
         {
-            _bulletPool = new BulletPool(bullets);
-            _playerShoot = new PlayerShoot(_playerModel, _bulletPool);              
+            _bulletPool = new BulletPool(bulletModel);
+            _playerShoot = new PlayerShoot(_playerModel, _bulletPool, bulletModel);             
         }
 
         public void EnemyModelTake(HashSet<EnemyModel> asteroids, HashSet<EnemyModel> comets)

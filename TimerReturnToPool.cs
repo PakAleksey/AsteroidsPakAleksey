@@ -10,7 +10,7 @@ namespace AsteroidsPakAleksey
         public event Action ReturnToPoolBullet = delegate { };
         private const float _limitTime = 2;
 
-        private void Awake()
+        public void GoCoroutine()
         {
             StartCoroutine(ReturnToPool());
         }

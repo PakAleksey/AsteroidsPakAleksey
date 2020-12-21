@@ -8,39 +8,42 @@ namespace AsteroidsPakAleksey
 {
     public sealed class BulletPool
     {
-        private readonly List<BulletModel> _bulletPool;
+        private readonly List<GameObject> _bulletPool;
+        private BulletModel _bulletModel;
         private Transform _rootPool;
-        
+        private const int _capacityPool = 5;
 
-        public BulletPool(List<BulletModel> bullets)
+
+        public BulletPool(BulletModel bulletModel)
         {
-            _bulletPool = bullets;
+            _bulletModel = bulletModel;
+            _bulletPool = new List<GameObject>();
             if (!_rootPool)
             {
-                _rootPool = new GameObject(NameManager.POOL_AMMUNITION).transform;
-            }
-            foreach(var bullet in _bulletPool)
-            {
-                bullet.DataBullet.BulletPrefab = Object.Instantiate(bullet.DataBullet.BulletPrefab);
-                ReturnToPool(bullet.DataBullet.BulletPrefab.transform);
+                _rootPool = new GameObject(NameManager.POOL_BULLETS).transform;
             }
         }
 
-        public BulletModel GetBullet()
+        public GameObject GetBullet()
         {
-            //var bullet = _bulletPool.FirstOrDefault(a => !a.DataBullet.BulletPrefab.activeSelf);
-            foreach(var bullet in _bulletPool)
+            var bullet = _bulletPool.FirstOrDefault(a => !a.activeSelf);
+            if (bullet == null)
             {
-                if (!bullet.DataBullet.BulletPrefab.activeSelf)
+                var laser = _bulletModel.DataBullet.BulletPrefab;
+                for (var i = 0; i < _capacityPool; i++)
                 {
-                    return bullet;
+                    var instantiate = Object.Instantiate(laser);
+                    ReturnToPool(instantiate.transform);
+                    _bulletPool.Add(instantiate);
                 }
+                GetBullet();
             }
-            return null;            
+            bullet = _bulletPool.FirstOrDefault(a => !a.activeSelf);
+            return bullet;           
         }
 
         public void ReturnToPool(Transform transform)
-        {
+        {            
             transform.localPosition = Vector3.zero;
             transform.localRotation = Quaternion.identity;
             transform.gameObject.SetActive(false);
